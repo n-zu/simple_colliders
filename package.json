@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "typescript": "^5.3.3"
+  },
+  "name": "simple_colliders",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc --watch",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

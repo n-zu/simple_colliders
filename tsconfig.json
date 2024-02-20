@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "outDir": "./js",
+    "rootDir": "./src"
+  },
+  "include": ["src/**/*.ts"]
+}
