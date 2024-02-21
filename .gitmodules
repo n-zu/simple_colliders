@@ -1,0 +1,3 @@
+[submodule "pages/js/sound"]
+	path = pages/js/sound
+	url = git@github.com:n-zu/sound.git

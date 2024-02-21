@@ -1,6 +1,6 @@
 import Circle from "../../../js/circle.js";
 import World from "../../../js/world.js";
-import Sound from "../sound/src/sound.js";
+import Sound from "../js/sound/src/sound.js";
 
 const canvas = document.getElementById("canvas");
 const energy = document.getElementById("energy");
