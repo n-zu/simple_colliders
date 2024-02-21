@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "outDir": "./js",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "target": "es6",
+    "module": "es6"
   },
   "include": ["src/**/*.ts"]
 }

@@ -10,10 +10,22 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
     />
+
+    <style>
+      canvas {
+        width: 100%;
+        height: calc(100vh - 150px);
+        border: 1px solid #fffd;
+      }
+    </style>
   </head>
   <body>
     <main class="container">
-      <h1>Simple Colliders</h1>
+      <h1>Click for Circles</h1>
+      <canvas id="canvas"></canvas>
+      <div class="grid">
+        <p>Energy: <i id="energy">xx</i></p>
+      </div>
     </main>
   </body>
 </html>
