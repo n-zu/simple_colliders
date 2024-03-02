@@ -25,27 +25,13 @@ class World {
 
   checkCollisions() {
     for (let i = 0; i < this.circles.length; i++) {
-      // Other Circles
       for (let j = i + 1; j < this.circles.length; j++) {
-        if (this.circles[i].collidesWith(this.circles[j])) {
-          this.circles[i].collide(this.circles[j]);
-        }
-      }
-
-      // Walls
-      if (this.circles[i].x - this.circles[i].r < 0) {
-        this.circles[i].vx = Math.abs(this.circles[i].vx);
-      }
-      if (this.circles[i].x + this.circles[i].r > this.width) {
-        this.circles[i].vx = -Math.abs(this.circles[i].vx);
-      }
-      if (this.circles[i].y - this.circles[i].r < 0) {
-        this.circles[i].vy = Math.abs(this.circles[i].vy);
-      }
-      if (this.circles[i].y + this.circles[i].r > this.height) {
-        this.circles[i].vy = -Math.abs(this.circles[i].vy);
+        this.circles[i].collideWithCircle(this.circles[j]);
       }
     }
+    this.circles.forEach((circle) =>
+      circle.collideWithWalls(this.width, this.height)
+    );
   }
 
   update(dt: number) {

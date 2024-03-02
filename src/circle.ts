@@ -7,6 +7,8 @@ class Circle {
   vx: number = 0;
   vy: number = 0;
 
+  fixed: boolean = false;
+
   constructor(x: number = 0, y: number = 0, r: number = 1) {
     this.x = x;
     this.y = y;
@@ -16,7 +18,8 @@ class Circle {
   copy() {
     return new Circle(this.x, this.y, this.r)
       .setVelocity(this.vx, this.vy)
-      .setMass(this.mass);
+      .setMass(this.mass)
+      .setFixed(this.fixed);
   }
 
   setMass(mass: number) {
@@ -30,6 +33,11 @@ class Circle {
     return this;
   }
 
+  setFixed(fixed: boolean) {
+    this.fixed = fixed;
+    return this;
+  }
+
   energy() {
     return 0.5 * this.mass * (this.vx * this.vx + this.vy * this.vy);
   }
@@ -40,14 +48,20 @@ class Circle {
     return this;
   }
 
-  collidesWith(other: Circle) {
-    let dx = this.x - other.x;
-    let dy = this.y - other.y;
-    let distance = Math.sqrt(dx * dx + dy * dy);
-    return distance < this.r + other.r;
+  _checkCircleCollision(other: Circle) {
+    const dx = this.x - other.x;
+    const dy = this.y - other.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    const colliding = distance < this.r + other.r;
+    const notFixed = !this.fixed || !other.fixed;
+    return colliding && notFixed;
   }
 
-  collide(other: Circle) {
+  collideWithCircle(other: Circle) {
+    if (!this._checkCircleCollision(other)) {
+      return;
+    }
+
     let dx = this.x - other.x;
     let dy = this.y - other.y;
     let distance = Math.sqrt(dx * dx + dy * dy);
@@ -70,16 +84,35 @@ class Circle {
       (dpNorm2 * (other.mass - this.mass) + 2 * this.mass * dpNorm1) /
       (this.mass + other.mass);
 
-    this.vx = tx * dpTan1 + nx * m1;
-    this.vy = ty * dpTan1 + ny * m1;
-    other.vx = tx * dpTan2 + nx * m2;
-    other.vy = ty * dpTan2 + ny * m2;
-
     let overlap = this.r + other.r - distance;
-    this.x += (nx * overlap) / 2;
-    this.y += (ny * overlap) / 2;
-    other.x -= (nx * overlap) / 2;
-    other.y -= (ny * overlap) / 2;
+
+    if (!this.fixed) {
+      this.vx = tx * dpTan1 + nx * m1;
+      this.vy = ty * dpTan1 + ny * m1;
+      this.x += (nx * overlap) / 2;
+      this.y += (ny * overlap) / 2;
+    }
+    if (!other.fixed) {
+      other.vx = tx * dpTan2 + nx * m2;
+      other.vy = ty * dpTan2 + ny * m2;
+      other.x -= (nx * overlap) / 2;
+      other.y -= (ny * overlap) / 2;
+    }
+  }
+
+  collideWithWalls(width: number, height: number) {
+    if (this.x - this.r < 0) {
+      this.vx = Math.abs(this.vx);
+    }
+    if (this.x + this.r > width) {
+      this.vx = -Math.abs(this.vx);
+    }
+    if (this.y - this.r < 0) {
+      this.vy = Math.abs(this.vy);
+    }
+    if (this.y + this.r > height) {
+      this.vy = -Math.abs(this.vy);
+    }
   }
 
   draw(ctx: CanvasRenderingContext2D) {
