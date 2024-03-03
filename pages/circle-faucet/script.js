@@ -20,12 +20,13 @@ function decay(percentage) {
   // if it is < 0.1 delete it
 
   world.circles.forEach((circle) => {
-    circle.vx *= percentage;
-    circle.vy *= percentage;
+    circle.v[0] *= percentage;
+    circle.v[1] *= percentage;
   });
 
   world.circles = world.circles.filter((circle) => {
-    const keep = Math.abs(circle.vx) > 0.1 || Math.abs(circle.vy) > 0.1;
+    const [vx, vy] = circle.v;
+    const keep = Math.abs(vx) > 0.1 || Math.abs(vy) > 0.1;
 
     if (keep) return keep;
 
@@ -60,11 +61,13 @@ const createRandomCircle = () => {
 
   const speed = 3000;
 
-  const c = new Circle(canvas.width / 2, canvas.height / 2, 50 * mass)
-    .setVelocity(
-      ((Math.random() * 1 - 0.5) * speed) / mass,
-      ((Math.random() * 1 - 0.5) * speed) / mass
-    )
+  const velocity = [
+    ((Math.random() * 1 - 0.5) * speed) / mass,
+    ((Math.random() * 1 - 0.5) * speed) / mass,
+  ];
+
+  const c = new Circle([canvas.width / 2, canvas.height / 2], 50 * mass)
+    .setVelocity(velocity)
     .setMass(mass);
 
   world.addCircle(c);
