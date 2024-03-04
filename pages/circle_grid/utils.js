@@ -20,3 +20,8 @@ export function dazzleVector([x, y], t, f = 10) {
   const dy = Math.sin(t) * f;
   return [x + dx, y + dy];
 }
+
+export function map2(t, a0, a1, b0, b1) {
+  const r = b0 + ((t - a0) * (b1 - b0)) / (a1 - a0);
+  return Math.min(b1, Math.max(b0, r));
+}

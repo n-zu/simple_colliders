@@ -1,6 +1,6 @@
-import { world, initWorld, reset } from "./gridWorld.js";
+import { world, initWorld } from "./gridWorld.js";
 import { cursorPosition, dazzleVector } from "./utils.js";
-import { repel, antiEnlarge, enlarge } from "./gridFunctions.js";
+import { repel, antiEnlarge, enlarge, playSound } from "./gridFunctions.js";
 
 import { doRepel, repelForce } from "./ui.js";
 import { doAntiEnlarge, antiEnlargeMaxMul, antiEnlargeForce } from "./ui.js";
@@ -36,6 +36,8 @@ function handleCursor(t) {
       );
     doEnlarge &&
       enlarge(circle, pos, world.circle_radius, enlargeMaxMul, enlargeForce);
+
+    playSound(circle, pos);
   });
 }
 
