@@ -56,10 +56,7 @@ export function initWorld(canvas, circle_radius = 10, distance = 5) {
 }
 
 export const updateCircleRadius = (radius) => {
-  world.circles.forEach((circle) => {
-    circle.r = radius;
-  });
-  world.circle_radius = radius;
+  world = setupWorld(world.canvas, radius, world.distance, world.fixed);
 };
 
 export const updateDistance = (distance) => {
@@ -75,4 +72,13 @@ export const updateFixed = (fixed) => {
 
 export const updatePullForce = (force) => {
   world.pullForce = force;
+};
+
+export const reset = () => {
+  world = setupWorld(
+    world.canvas,
+    world.circle_radius,
+    world.distance,
+    world.fixed
+  );
 };

@@ -1,4 +1,4 @@
-import { world, initWorld, updateFixed } from "./gridWorld.js";
+import { world, initWorld, reset } from "./gridWorld.js";
 import { cursorPosition, dazzleVector } from "./utils.js";
 import { repel, antiEnlarge, enlarge } from "./gridFunctions.js";
 
@@ -15,7 +15,6 @@ const ctx = canvas.getContext("2d");
 ctx.strokeStyle = "white";
 
 initWorld(canvas, 10, 5);
-//updateFixed(false);
 
 var cursor = [0, 0];
 
