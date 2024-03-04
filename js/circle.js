@@ -20,7 +20,7 @@ class Circle {
         this.v = velocity;
         return this;
     }
-    setFixed(fixed) {
+    setFixed(fixed = true) {
         this.fixed = fixed;
         return this;
     }

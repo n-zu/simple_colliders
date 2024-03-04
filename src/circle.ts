@@ -31,7 +31,7 @@ class Circle {
     return this;
   }
 
-  setFixed(fixed: boolean) {
+  setFixed(fixed: boolean = true) {
     this.fixed = fixed;
     return this;
   }
